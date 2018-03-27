@@ -87,7 +87,8 @@ def freq_crime_level(name)
  	typ2 = Hash.new(0)
  	get_borough(name).each do |loc|
  		loc.crimes.each do |cr|
- 			typ[cr.date_of_crime.split("-")[1]] = [typ2[cr.offense] +=1]
+ 			typ2[cr.offense] +=1
+ 			typ[cr.date_of_crime.split("-")[1]] = typ2
  		end
  	end
  	typ
