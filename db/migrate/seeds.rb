@@ -11,8 +11,8 @@ end
 
 crime_data.each do |complaint|
 	act = CriminalAct.new(complaint_num: complaint["cmplnt_num"], complaint["latitude"])
-	act.location = Location.find_by(latitude: act["latitude"])
-	act.crime = Crime.find_by(complaint_num: act["cmplnt_num"])
+	act.location_id = Location.find_by(latitude: act["latitude"]).id
+	act.crime_id = Crime.find_by(complaint_num: act["cmplnt_num"]).id
 	act.save
 end
 
