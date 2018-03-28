@@ -126,49 +126,157 @@ def nyc_freq_crime_spots
 
 
 
- # def greet
- #    puts "Welcome to NYC Safety Net!"
- # end
+ def greet
+    puts "Welcome to NYC Safety Net!"
+ end
 
 
-  # def main_menu
-  #   message = [
-  #     "What would you like to do?:",
-  #     "1 : Check Criminal Activity by Borough",
-  #     "2 : Check Criminal Activity by City-Wide",
-  #     "3 : Exit"
-  #   ]
-  #   puts message
-  #   puts "Please enter one of the numbered commands:"
-  #   menu_input
-  # end
+  def main_menu
+    message = [
+      "What would you like to do?:",
+      "1 : Check Criminal Activity by Borough",
+      "2 : Check Criminal Activity by City-Wide",
+      "3 : Exit"
+    ]
+    puts message
+    puts "Please enter one of the numbered commands:"
+    menu_input
+  end
 
-  # def menu_input
-  #   input = gets.chomp
-  #     case input
+def sub_menu_boroughs
+message = [
+      "What would you like to do?:",
+      "1 : View number of crimes",
+      "2 : View breakdown of crime types",
+      "3 : View hot-spot crime areas",
+      "4 : View breakdown severity of crimes",
+      "5 : View monthly breakdown of types of crimes",
+      "6 : Exit Sub-Menu",
+    ]
+    puts message
+    puts "Please enter one of the numbered commands:"
+    menu_input_borough
+end
+
+
+
+
+
+
+
+def menu_input_borough
+	input = gets.chomp
+	if input == "6"
+		main_menu
+	else
+	puts "Please name the borough:"
+	name = gets.chomp
+    case input
      
-  #     when "1"
-        #sub_menu_boroughs
-  #     when "2"
-        #sub_menu_nyc
-  #     when "3"
-        # exit_menu
-  #     else
-  #       puts "Please enter one of the valid commands: #{input} is NOT a command!"
-  #       menu_input
-  #     end
-  # end
+    when "1"
+        puts num_of_crimes(name)
+   	when "2"
+        puts type_of_crimes_borough(name)
+    when "3"
+    	puts freq_crime_spots(name)
+    when "4"
+    	puts freq_crime_level(name)
+    when "5"
+    	puts freq_crime_type_by_month(name)
+	when "6"
+		main_menu
+      else
+        puts "Please enter one of the valid commands: #{input} is NOT a command!"
+        menu_input
+      end
+      sub_menu_boroughs
+  end
+  end
 
-  # def exit_menu
-  #   puts "Goodbye, Stay Safe Out There!"
-  # end
+
+def sub_menu_city
+message = [
+      "What would you like to do?:",
+      "1 : View breakdown of crime types",
+      "2 : View hot-spot crime areas",
+      "3 : View breakdown severity of crimes",
+      "4 : View monthly breakdown of types of crimes",
+      "5 : Exit Sub-Menu",
+    ]
+    puts message
+    puts "Please enter one of the numbered commands:"
+    menu_input_city
+end
+
+
+
+
+def menu_input_city
+	input = gets.chomp
+    if input == "5"
+     	main_menu
+     else
+    case input
+    when "1"
+        puts nyc_freq_crime_type
+   	when "2"
+        puts nyc_freq_crime_spots
+    when "3"
+    	puts nyc_crime_level
+    when "4"
+    	puts nyc_crime_freq_by_month
+    when "5"
+    	main_menu
+      else
+        puts "Please enter one of the valid commands: #{input} is NOT a command!"
+        menu_input
+      end
+      sub_menu_city
+  	end
+  end
 
 
 
 
 
 
-	# def runner
-	# 	greet
-	# 	main_menu
-	# end
+
+
+
+def menu_input
+    input = gets.chomp
+      case input
+     
+      when "1"
+        sub_menu_boroughs
+      when "2"
+        sub_menu_city
+      when "3"
+        exit_menu
+      else
+        puts "Please enter one of the valid commands: #{input} is NOT a command!"
+        menu_input
+      end
+  end
+
+
+
+
+
+
+
+
+
+  def exit_menu
+    puts "Goodbye! Stay Safe Out There!"
+  end
+
+
+
+
+
+
+	def runner
+		greet
+		main_menu
+	end
