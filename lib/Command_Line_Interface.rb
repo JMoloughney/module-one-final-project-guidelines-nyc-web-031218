@@ -1,4 +1,3 @@
-
 require 'pry'
 def get_borough(name)
 	Location.all.select do |loc|
@@ -199,13 +198,12 @@ def nyc_freq_crime_spots
  			when "12"
  				puts "December:"
  			end
+ 			puts "-----------"
  		v.each do |k,v|
  			puts "#{k}:#{v}" 
  		end
  	end
  end
-
-
 
 
 
@@ -347,11 +345,6 @@ def menu_input
         menu_input
       end
   end
-
-
-
-
-
 
 
 
