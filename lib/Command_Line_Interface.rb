@@ -30,18 +30,6 @@ def least_dangerous_borough
 end
 
 
-# def crime_ids
-# 	Crime.all.map do |crime|
-# 		crime.id
-# 	end
-# end
-
-# def location_ids
-# 	Location.all.map do |location|
-# 		location.id
-# 	end
-# end
-
  def type_of_crimes_borough(name)
  	typ = Hash.new(0)
  	get_borough(name).each do |loc|
@@ -72,45 +60,115 @@ def freq_crime_level(name)
  end
 
 
- def freq_crime_by_month(name)
+ def freq_crime_type_by_month(name)
+ 	arr = grab_months
+ 	typ = arr.each_with_object({}){|month, hash| hash[month] = Hash.new(0)}
+
+ 	get_borough(name).each do |loc|
+ 		loc.crimes.each do |cr|
+ 			month = cr.date_of_crime.split("-")[1]
+ 			typ[month][cr.offense] += 1  
+ 		end
+ 	end
+ 	typ
+ end
+
+ def grab_months
+	Crime.all.map do |cr|
+		cr.date_of_crime.split("-")[1]
+	end.uniq.sort
+end
+
+
+ #city-wide menu
+
+
+def nyc_crime_level
+	typ = Hash.new(0)
+ 	Crime.all.map do |c|
+ 		typ[c.severity] += 1
+ 	end
+ 	typ
+end
+
+
+def nyc_freq_crime_spots
+	typ = Hash.new(0)
+	Location.all.map do |loc|
+		typ[loc.scene_of_crime] += 1
+ 	end
+ 	typ
+ end
+
+
+ def nyc_freq_crime_type
  	typ = Hash.new(0)
- 	get_borough(name).each do |loc|
+ 	Crime.all.map do |c|
+ 			typ[c.offense] += 1
+ 		end
+ 	typ
+ end
+
+
+ def nyc_crime_freq_by_month
+ 	arr = grab_months
+ 	typ = arr.each_with_object({}){|month, hash| hash[month] = Hash.new(0)}
+ 	Location.all.each do |loc|
  		loc.crimes.each do |cr|
- 			typ[cr.date_of_crime.split("-")[1]] +=1 
+ 			month = cr.date_of_crime.split("-")[1]
+ 			typ[month][cr.offense] += 1  
  		end
  	end
  	typ
  end
 
- def freq_crime_spots_by_month(name)
- 	typ = {}
- 	typ2 = Hash.new(0)
- 	get_borough(name).each do |loc|
- 		loc.crimes.each do |cr|
- 			typ2[cr.offense] +=1
- 			typ[cr.date_of_crime.split("-")[1]] = typ2
- 		end
- 	end
- 	typ
- end
+
+
+
+
+ # def greet
+ #    puts "Welcome to NYC Safety Net!"
+ # end
+
+
+  # def main_menu
+  #   message = [
+  #     "What would you like to do?:",
+  #     "1 : Check Criminal Activity by Borough",
+  #     "2 : Check Criminal Activity by City-Wide",
+  #     "3 : Exit"
+  #   ]
+  #   puts message
+  #   puts "Please enter one of the numbered commands:"
+  #   menu_input
+  # end
+
+  # def menu_input
+  #   input = gets.chomp
+  #     case input
+     
+  #     when "1"
+        #sub_menu_boroughs
+  #     when "2"
+        #sub_menu_nyc
+  #     when "3"
+        # exit_menu
+  #     else
+  #       puts "Please enter one of the valid commands: #{input} is NOT a command!"
+  #       menu_input
+  #     end
+  # end
+
+  # def exit_menu
+  #   puts "Goodbye, Stay Safe Out There!"
+  # end
 
 
 
 
 
-# def crime_by_location
-# 	CriminalAct.all.select do |ca|
-# 	end
-# end
 
-# def locatiom_by_crime
-# 	CriminalAct.all.select do |ca|
-#   end
-# end
-
-
-
-
-
-	def runner
-	end
+	# def runner
+	# 	greet
+	# 	main_menu
+	# end

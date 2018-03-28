@@ -10,11 +10,3 @@ end
 
 
 
-
-
-
-# def retrieve_array_of_crimes
-# 	crime_data.map do |complaint|
-# 		complaint["ofns_desc"]
-# 	end
-# end
