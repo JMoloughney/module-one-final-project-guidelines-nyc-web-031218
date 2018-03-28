@@ -1,5 +1,5 @@
 
-
+require 'pry'
 def get_borough(name)
 	Location.all.select do |loc|
 	loc.name.downcase == name.downcase
@@ -16,7 +16,8 @@ def most_dangerous_borough
 	bor.each do |bor|
 		count[bor] = num_of_crimes(bor)
 	end
-	count.max_by{|k,v| v}
+	x = count.max_by{|k,v| v}
+	puts "The most dangerous borough is currently #{x[0].capitalize}, with a crime total of #{x[1]}"
 end
 
 
@@ -26,7 +27,8 @@ def least_dangerous_borough
 	bor.each do |bor|
 		count[bor] = num_of_crimes(bor)
 	end
-	count.min_by{|k,v| v}
+	x = count.min_by{|k,v| v}
+	puts "The safest borough is currently #{x[0].capitalize}, with a crime total of #{x[1]}"
 end
 
 
@@ -37,7 +39,10 @@ end
  			typ[cr.offense] += 1
  		end
  	end
- 	typ
+ 	puts "These are frequent crime types in your borough:"
+ 	typ.each do |k,v|
+ 		puts "#{k}:#{v}"
+ 	end
  end
 
 
@@ -46,7 +51,10 @@ end
  	get_borough(name).each do |loc|
  		typ[loc.scene_of_crime] +=1
  	end
- 	typ
+ 	puts "These are frequent crime spots in your borough:"
+ 	typ.each do |k,v|
+ 		puts "#{k}:#{v}" 
+ 	end
  end
 
 def freq_crime_level(name)
@@ -56,7 +64,10 @@ def freq_crime_level(name)
  			typ[cr.severity] += 1
  		end
  	end
- 	typ
+ 	puts "These are crime level frequencies in your borough:"
+ 	typ.each do |k,v|
+ 		puts "#{k}:#{v}" 
+ 	end
  end
 
 
@@ -174,15 +185,15 @@ def menu_input_borough
     case input
      
     when "1"
-        puts num_of_crimes(name)
+        num_of_crimes(name)
    	when "2"
-        puts type_of_crimes_borough(name)
+        type_of_crimes_borough(name)
     when "3"
-    	puts freq_crime_spots(name)
+    	freq_crime_spots(name)
     when "4"
-    	puts freq_crime_level(name)
+    	freq_crime_level(name)
     when "5"
-    	puts freq_crime_type_by_month(name)
+    	freq_crime_type_by_month(name)
 	when "6"
 		main_menu
       else
@@ -201,7 +212,9 @@ message = [
       "2 : View hot-spot crime areas",
       "3 : View breakdown severity of crimes",
       "4 : View monthly breakdown of types of crimes",
-      "5 : Exit Sub-Menu",
+      "5 : Current Dangerous Borough",
+      "6 : Current Safest Borough",
+      "7 : Exit Sub-Menu",
     ]
     puts message
     puts "Please enter one of the numbered commands:"
@@ -213,7 +226,7 @@ end
 
 def menu_input_city
 	input = gets.chomp
-    if input == "5"
+    if input == "7"
      	main_menu
      else
     case input
@@ -226,6 +239,10 @@ def menu_input_city
     when "4"
     	puts nyc_crime_freq_by_month
     when "5"
+    	puts most_dangerous_borough
+    when "6"
+    	puts least_dangerous_borough
+    when "7"
     	main_menu
       else
         puts "Please enter one of the valid commands: #{input} is NOT a command!"
