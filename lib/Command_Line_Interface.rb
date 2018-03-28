@@ -81,8 +81,40 @@ def freq_crime_level(name)
  			typ[month][cr.offense] += 1  
  		end
  	end
- 	typ
+ 	puts "These are crime type rates by month in your borough:"
+ 	typ.each do |k,v|
+ 		case k
+ 			when "01"
+ 				puts "January:"
+ 			when "02"
+ 				puts "February:"
+ 			when "03"
+ 				puts "March:"
+ 			when "04"
+ 				puts "April:"
+ 			when "05"
+ 				puts "May:"
+ 			when "06"
+ 				puts "June:"
+ 			when "07"
+ 				puts "July:"
+ 			when "08"
+ 				puts "August:"
+ 			when "09"
+ 				puts "September:"
+ 			when "10"
+ 				puts "October:"
+ 			when "11"
+ 				puts "November:"
+ 			when "12"
+ 				puts "December:"
+ 			end
+ 		v.each do |k,v|
+ 			puts "#{k}:#{v}" 
+ 		end
+ 	end
  end
+
 
  def grab_months
 	Crime.all.map do |cr|
@@ -99,7 +131,10 @@ def nyc_crime_level
  	Crime.all.map do |c|
  		typ[c.severity] += 1
  	end
- 	typ
+ 	puts "These are crime level frequencies in NYC:"
+ 	typ.each do |k,v|
+ 		puts "#{k}:#{v}" 
+ 	end
 end
 
 
@@ -108,7 +143,10 @@ def nyc_freq_crime_spots
 	Location.all.map do |loc|
 		typ[loc.scene_of_crime] += 1
  	end
- 	typ
+ 	puts "These are crime hot-spots in NYC:"
+ 	typ.each do |k,v|
+ 		puts "#{k}:#{v}" 
+ 	end
  end
 
 
@@ -117,7 +155,10 @@ def nyc_freq_crime_spots
  	Crime.all.map do |c|
  			typ[c.offense] += 1
  		end
- 	typ
+ 	puts "These are the frequent types of crimes committed in NYC:"
+ 	typ.each do |k,v|
+ 		puts "#{k}:#{v}" 
+ 	end
  end
 
 
@@ -130,7 +171,38 @@ def nyc_freq_crime_spots
  			typ[month][cr.offense] += 1  
  		end
  	end
- 	typ
+ 	puts "These are crime type rates by month in NYC:"
+ 	typ.each do |k,v|
+ 		case k
+ 			when "01"
+ 				puts "January:"
+ 			when "02"
+ 				puts "February:"
+ 			when "03"
+ 				puts "March:"
+ 			when "04"
+ 				puts "April:"
+ 			when "05"
+ 				puts "May:"
+ 			when "06"
+ 				puts "June:"
+ 			when "07"
+ 				puts "July:"
+ 			when "08"
+ 				puts "August:"
+ 			when "09"
+ 				puts "September:"
+ 			when "10"
+ 				puts "October:"
+ 			when "11"
+ 				puts "November:"
+ 			when "12"
+ 				puts "December:"
+ 			end
+ 		v.each do |k,v|
+ 			puts "#{k}:#{v}" 
+ 		end
+ 	end
  end
 
 
@@ -231,17 +303,17 @@ def menu_input_city
      else
     case input
     when "1"
-        puts nyc_freq_crime_type
+        nyc_freq_crime_type
    	when "2"
-        puts nyc_freq_crime_spots
+        nyc_freq_crime_spots
     when "3"
-    	puts nyc_crime_level
+    	nyc_crime_level
     when "4"
-    	puts nyc_crime_freq_by_month
+    	nyc_crime_freq_by_month
     when "5"
-    	puts most_dangerous_borough
+    	most_dangerous_borough
     when "6"
-    	puts least_dangerous_borough
+    	least_dangerous_borough
     when "7"
     	main_menu
       else
