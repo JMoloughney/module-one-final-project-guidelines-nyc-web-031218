@@ -52,15 +52,19 @@ end
   header_border
  	puts "These are the frequent crime types in your borough:".colorize(:white)
   header_border
- 	  dash
+ 	spacer
+  spacer
   typ.each do |k,v|
     if k
+    header_border
     puts "#{k}:".colorize(:yellow)
-    sub_dash
+    dash
     puts "#{v}".colorize(:white)
-    dash 
+    header_border
   end
  end
+ spacer
+ spacer
  end
 
 
@@ -72,15 +76,20 @@ end
   header_border
  	puts "These are the frequent crime spots in your borough:".colorize(:white)
   header_border
- 	  dash
+ 	spacer
+  spacer
+  header_border
   typ.each do |k,v|
     if k
+    header_border
     puts "#{k}:".colorize(:yellow)
-    sub_dash
+    dash
     puts "#{v}".colorize(:white)
-    dash 
+    header_border
   end
  end
+ spacer
+ spacer
  end
 
 def freq_crime_level(name)
@@ -93,11 +102,17 @@ def freq_crime_level(name)
   header_border
  	puts "These are the crime level frequencies in your borough:".colorize(:white)
   header_border
+  spacer
+  spacer
+  header_border
  	typ.each do |k,v|
  		puts "#{k}:".colorize(:yellow)
-    sub_dash
+    dash
     puts "#{v}"
+    header_border
  	end
+  spacer
+  spacer
  end
 
 
@@ -114,14 +129,22 @@ def freq_crime_level(name)
   header_border
  	puts "These are the crime type rates by month in your borough:".colorize(:white)
   header_border
+  spacer
+  spacer
  	typ.each do |k,v|
- 		 dash
+    header_border
     puts Date::MONTHNAMES[k.to_i].colorize(:yellow)
-      sub_dash
+    dash
  		v.each do |k,v|
- 			puts "#{k}: #{v}" if k
+ 			if k
+    header_border
+      puts "#{k}: #{v}" 
+    header_border
  		end
+  end
  	end
+  spacer
+  spacer
  end
 
 
@@ -143,13 +166,18 @@ def nyc_crime_level
   header_border
  	puts "These are the crime level frequencies in NYC:".colorize(:white)
   header_border
+  spacer
+  spacer
  	typ.each do |k,v|
  		if k
+    header_border
     puts "#{k}:".colorize(:yellow)
     puts "#{v}"
-    dash
+    header_border
  	end
  end
+ spacer
+ spacer
 end
 
 
@@ -161,14 +189,18 @@ def nyc_freq_crime_spots
   header_border
  	puts "These are the crime hot-spots in NYC:".colorize(:white)
   header_border
- 	  dash
+ 	spacer
+  spacer
   typ.each do |k,v|
     if k
+    header_border
     puts "#{k}:".colorize(:yellow)
     puts "#{v}"
-    dash 
+    header_border
   end
  end
+ spacer
+ spacer
  end
 
 
@@ -180,14 +212,18 @@ def nyc_freq_crime_spots
   header_border
  	puts "These are the frequent types of crimes committed in NYC:".colorize(:white)
   header_border
- 	dash
+ 	spacer
+  spacer
   typ.each do |k,v|
     if k
+    header_border
     puts "#{k}:".colorize(:yellow)
     puts "#{v}" 
-    dash 
+    header_border
  	end
  end
+ spacer
+ spacer
  end
 
 
@@ -203,15 +239,19 @@ def nyc_freq_crime_spots
   header_border
    	puts "These are the crime type rates by month in NYC:".colorize(:white)
   header_border
+  spacer
+  spacer
  	typ.each do |k,v|
-    dash
+    header_border
     puts Date::MONTHNAMES[k.to_i].colorize(:yellow)
  		sub_dash
  		v.each do |k,v|
  			puts "#{k}: #{v}" if k
+    header_border
  		end
  	end
-  dash
+  spacer
+  spacer
  end
 
 
