@@ -5,12 +5,13 @@ require 'colorize'
 
 def get_borough(name)
 	Location.all.select do |loc|
-	loc.name.downcase == name.downcase
+		loc.name.downcase == name.downcase
 	end
 end
 
-def num_of_crimes_in_borough(name)
-	x = get_borough(name).length
+
+def num_of_crimes(name)
+	get_borough(name).length
 end
 
 
@@ -51,7 +52,7 @@ end
  	puts "These are the frequent crime types in your borough:"
   header_border
  	typ.each do |k,v|
- 		puts "#{k}:#{v}"
+ 		puts "#{k}: #{v}"
  	end
  end
 
@@ -65,7 +66,7 @@ end
  	puts "These are the frequent crime spots in your borough:"
   header_border
  	typ.each do |k,v|
- 		puts "#{k}:#{v}" 
+ 		puts "#{k}: #{v}"
  	end
  end
 
@@ -80,7 +81,7 @@ def freq_crime_level(name)
  	puts "These are the crime level frequencies in your borough:"
   header_border
  	typ.each do |k,v|
- 		puts "#{k}:#{v}" 
+ 		puts "#{k}: #{v}"
  	end
  end
 
@@ -92,7 +93,7 @@ def freq_crime_level(name)
  	get_borough(name).each do |loc|
  		loc.crimes.each do |cr|
  			month = cr.date_of_crime.split("-")[1]
- 			typ[month][cr.offense] += 1  
+ 			typ[month][cr.offense] += 1
  		end
  	end
   header_border
@@ -139,7 +140,7 @@ def freq_crime_level(name)
  			end
       sub_dash
  		v.each do |k,v|
- 			puts "#{k}:#{v}" 
+ 			puts "#{k}: #{v}"
  		end
  	end
  end
@@ -166,6 +167,7 @@ def nyc_crime_level
  	typ.each do |k,v|
  		puts "#{k}:#{v}" 
     dash
+ 		puts "#{k}: #{v}"
  	end
 end
 
@@ -209,7 +211,7 @@ def nyc_freq_crime_spots
  	Location.all.each do |loc|
  		loc.crimes.each do |cr|
  			month = cr.date_of_crime.split("-")[1]
- 			typ[month][cr.offense] += 1  
+ 			typ[month][cr.offense] += 1
  		end
  	end
   header_border
@@ -256,11 +258,12 @@ def nyc_freq_crime_spots
  			end
  			sub_dash
  		v.each do |k,v|
- 			puts "#{k}:#{v}" 
+ 			puts "#{k}: #{v}"
  		end
  	end
   dash
  end
+
 
 
 
@@ -294,7 +297,6 @@ end
 
 
 #||||||||||||||MAIN APP METHODS||||||||||||||||||||||
-
 
 
  def greet
@@ -343,7 +345,6 @@ end
     creater_border
     puts  "-From your creators of NYC SafeNet: Helen and Joe".colorize(:yellow)
     creater_border
-    
   end
 
 
@@ -363,7 +364,20 @@ message = [dash,
     ]
     puts message
     puts "Please enter one of the numbered commands:"
-    menu_input_borough
+		input = gets.chomp
+
+		if input == "6"
+			main_menu
+		elsif !borough_input_valid?(input)
+			puts "Please enter one of the valid commands: #{input} is NOT a command!"
+			sub_menu_boroughs
+		else
+    	menu_input_borough(input)
+		end
+end
+
+def city_input_valid?(input)
+	input == "1" || input == "2" || input == "3" || input == "4" || input == "5" || input == "6"
 end
 
 
@@ -398,6 +412,43 @@ def menu_input_borough
   end
 
 
+def borough_input_valid?(input)
+	input == "1" || input == "2" || input == "3" || input == "4" || input == "5"
+end
+
+def borough_name_valid?(name)
+	name.downcase == "brooklyn" || name.downcase == "manhattan" || name.downcase == "queens" || name.downcase == "staten island" || name.downcase == "bronx"
+end
+
+def menu_input_borough(input)
+	puts "Please name the borough:"
+	name = gets.chomp
+
+	if !borough_name_valid?(name)
+		puts "Please enter a valid borough name."
+		menu_input_borough(input)
+	else
+	  case input
+		  when "1"
+		    x = num_of_crimes(name)
+				puts "#{name.capitalize} has a crime total of #{x}."
+		 	when "2"
+		    type_of_crimes_borough(name)
+		  when "3"
+		  	freq_crime_spots(name)
+		  when "4"
+		  	freq_crime_level(name)
+		  when "5"
+		  	freq_crime_type_by_month(name)
+			when "6"
+				main_menu
+	  end
+	  sub_menu_boroughs
+	end
+end
+
+
+
 #|||||CITY-WIDE MENUS|||||
 
 def sub_menu_city
@@ -421,34 +472,55 @@ end
 def menu_input_city
 	input = gets.chomp
     if input == "7"
-     	main_menu
-     else
-    case input
-    when "1"
-        nyc_freq_crime_type
-   	when "2"
-        nyc_freq_crime_spots
-    when "3"
-    	nyc_crime_level
-    when "4"
-    	nyc_crime_freq_by_month
-    when "5"
-    	most_dangerous_borough
-    when "6"
-    	least_dangerous_borough
-    when "7"
     	main_menu
-      else
-        puts "Please enter one of the valid commands: #{input} is NOT a command!"
-        menu_input
-      end
-      sub_menu_city
-  	end
+		elsif !city_input_valid?(input)
+			puts "Please enter one of the valid commands: #{input} is NOT a command!"
+			menu_input_city
+    else
+	    case input
+		    when "1"
+		      nyc_freq_crime_type
+		   	when "2"
+		      nyc_freq_crime_spots
+		    when "3"
+		    	nyc_crime_level
+		    when "4"
+		    	nyc_crime_freq_by_month
+		    when "5"
+		    	most_dangerous_borough
+		    when "6"
+		    	least_dangerous_borough
+		    when "7"
+		    	main_menu
+    	end
+	  	sub_menu_city
+		end
   end
 
 
 
+
 #|||||||||||||RUNS THE ENTIRE APP IN CONSOLE with "ruby ./bin/run.rb" ||||||||||||||||||||||
+
+def menu_input
+    input = gets.chomp
+      case input
+      when "1"
+        sub_menu_boroughs
+      when "2"
+        sub_menu_city
+      when "3"
+        exit_menu
+      else
+        puts "Please enter one of the valid commands: #{input} is NOT a command!"
+        menu_input
+      end
+  end
+
+  def exit_menu
+    puts "Goodbye! Stay Safe Out There!"
+  end
+
 
 	def runner
 		title_border
