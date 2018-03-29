@@ -351,24 +351,27 @@ end
 
 
 
-
-
-
-
 def menu_input_borough(input)
 	header_border
   puts "Please name the borough:"
   header_border
 	name = gets.chomp
   dash
+  spacer
+  spacer
 	if !borough_name_valid?(name)
 		puts "Please enter a valid borough name."
 		menu_input_borough(input)
 	else
 	  case input
 		  when "1"
+        header_border
 		    x = num_of_crimes(name)
-				puts "#{name.capitalize} has a crime total of #{x}."
+				puts "#{name.capitalize} has a crime total of #{x}.".colorize(:yellow)
+        header_border
+        spacer
+        spacer
+        spacer
 		 	when "2"
 		    type_of_crimes_borough(name)
 		  when "3"
@@ -413,7 +416,7 @@ def menu_input_city
     if input == "7"
     	main_menu
 		elsif !city_input_valid?(input)
-			puts "Please enter one of the valid commands: #{input} is NOT a command!"
+      puts "Please enter one of the valid commands: #{input} is NOT a command!"
 			menu_input_city
     else
 	    case input
