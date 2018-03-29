@@ -133,16 +133,17 @@ def freq_crime_level(name)
   spacer
  	typ.each do |k,v|
     header_border
-    puts Date::MONTHNAMES[k.to_i].colorize(:yellow)
-    dash
+    puts Date::MONTHNAMES[k.to_i].colorize(:white)
+    spacer
  		v.each do |k,v|
  			if k
-    header_border
-      puts "#{k}: #{v}" 
-    header_border
+    dash
+      puts "#{k}:".colorize(:yellow)
+      puts "#{v}" 
  		end
   end
  	end
+  header_border
   spacer
   spacer
  end
@@ -239,15 +240,14 @@ def nyc_freq_crime_spots
   header_border
    	puts "These are the crime type rates by month in NYC:".colorize(:white)
   header_border
-  spacer
-  spacer
  	typ.each do |k,v|
-    header_border
+    spacer
+    spacer
     puts Date::MONTHNAMES[k.to_i].colorize(:yellow)
- 		sub_dash
+ 		header_border
+    sub_dash
  		v.each do |k,v|
  			puts "#{k}: #{v}" if k
-    header_border
  		end
  	end
   spacer
