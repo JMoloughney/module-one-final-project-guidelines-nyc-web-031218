@@ -56,8 +56,8 @@ end
   typ.each do |k,v|
     if k
     puts "#{k}:".colorize(:yellow)
-    puts "#{v}" 
-    dash 
+    puts "#{v}"
+    dash
   end
  end
  end
@@ -75,8 +75,8 @@ end
   typ.each do |k,v|
     if k
     puts "#{k}:".colorize(:yellow)
-    puts "#{v}" 
-    dash 
+    puts "#{v}"
+    dash
   end
  end
  end
@@ -97,34 +97,59 @@ def freq_crime_level(name)
  end
 
 
- def freq_crime_type_by_month(name)
+ def freq_crime_type_by_month(name, month)
  	arr = grab_months
  	typ = arr.each_with_object({}){|month, hash| hash[month] = Hash.new(0)}
 
  	get_borough(name).each do |loc|
  		loc.crimes.each do |cr|
- 			month = cr.date_of_crime.split("-")[1]
+ 			num = cr.date_of_crime.split("-")[1]
+			month = convert_num_to_month(num.to_i)
  			typ[month][cr.offense] += 1
  		end
  	end
-  header_border
- 	puts "These are the crime type rates by month in your borough:".colorize(:white)
-  header_border
- 	typ.each do |k,v|
- 		 dash
-    puts Date::MONTHNAMES[k.to_i].colorize(:yellow)
-      sub_dash
- 		v.each do |k,v|
- 			puts "#{k}: #{v}" if k
- 		end
- 	end
+	header_border
+	 puts "These are the crime type rates by month in your borough:".colorize(:white)
+	header_border
+	typ
  end
+
+ def print_crime_by_months(name, month)
+	 if name
+	 	typ = freq_crime_type_by_month(name, month)
+	else
+		typ = nyc_crime_freq_by_month
+	end
+	 	month_hash = typ.select{|k,v| k.downcase == month.downcase}
+		month_hash.each do |k,v|
+			 dash
+		 puts k.colorize(:yellow)
+			 sub_dash
+			v.each do |k,v|
+				puts "#{k}: #{v}" if k
+			end
+		end
+		header_border
+		 puts "Type another month. Otherwise, type anything else to exit.".colorize(:white)
+		header_border
+		month = gets.chomp
+
+		if name
+			 print_crime_by_months(name, month) if month_valid?(month)
+		else
+			print_crime_by_months(name = nil, month) if month_valid?(month)
+		end
+end
 
 
  def grab_months
-	Crime.all.map do |cr|
-		cr.date_of_crime.split("-")[1]
+	arr = Crime.all.map do |cr|
+		cr.date_of_crime.split("-")[1].to_i
 	end.uniq.sort
+
+	arr.map do |m|
+		convert_num_to_month(m)
+	end
 end
 
 
@@ -141,7 +166,7 @@ def nyc_crime_level
   header_border
  	typ.each do |k,v|
  		if k
-    puts "#{k}: #{v}" 
+    puts "#{k}: #{v}"
     dash
  	end
  end
@@ -160,8 +185,8 @@ def nyc_freq_crime_spots
   typ.each do |k,v|
     if k
     puts "#{k}:".colorize(:yellow)
-    puts "#{v}" 
-    dash 
+    puts "#{v}"
+    dash
   end
  end
  end
@@ -179,8 +204,8 @@ def nyc_freq_crime_spots
   typ.each do |k,v|
     if k
     puts "#{k}:".colorize(:yellow)
-    puts "#{v}" 
-    dash 
+    puts "#{v}"
+    dash
  	end
  end
  end
@@ -191,22 +216,15 @@ def nyc_freq_crime_spots
  	typ = arr.each_with_object({}){|month, hash| hash[month] = Hash.new(0)}
  	Location.all.each do |loc|
  		loc.crimes.each do |cr|
- 			month = cr.date_of_crime.split("-")[1]
+			num = cr.date_of_crime.split("-")[1]
+			month = convert_num_to_month(num.to_i)
  			typ[month][cr.offense] += 1
  		end
  	end
   header_border
    	puts "These are the crime type rates by month in NYC:".colorize(:white)
   header_border
- 	typ.each do |k,v|
-    dash
-    puts Date::MONTHNAMES[k.to_i].colorize(:yellow)
- 		sub_dash
- 		v.each do |k,v|
- 			puts "#{k}: #{v}" if k
- 		end
- 	end
-  dash
+	typ
  end
 
 
@@ -242,7 +260,7 @@ end
 #|||||||||||||||HELPER/CHECKER METHODS||||||||||||||||||
 
 def borough_input_valid?(input)
-  input == "1" || input == "2" || input == "3" || input == "4" || input == "5"
+	(1..5).include?(input.to_i)
 end
 
 def borough_name_valid?(name)
@@ -250,9 +268,16 @@ def borough_name_valid?(name)
 end
 
 def city_input_valid?(input)
-  input == "1" || input == "2" || input == "3" || input == "4" || input == "5" || input == "6"
+	(1..6).include?(input.to_i)
 end
 
+def month_valid?(input)
+	grab_months.include?(input.capitalize)
+end
+
+def convert_num_to_month(num)
+	Date::MONTHNAMES[num]
+end
 
 #||||||||||||||MAIN APP METHODS||||||||||||||||||||||
 
@@ -281,7 +306,7 @@ end
   def menu_input
     input = gets.chomp
       case input
-     
+
       when "1"
         sub_menu_boroughs
       when "2"
@@ -336,43 +361,6 @@ message = [dash,
 end
 
 
-
-
-def menu_input_borough
-	input = gets.chomp
-	if input == "6"
-		main_menu
-	else
-  header_border
-	puts "Please enter the name of your borough :"
-  header_border
-	name = gets.chomp
-  dash
-    case input
-     
-    when "1"
-        num_of_crimes(name)
-        puts "There are currently #{get_borough(name).length} crimes in your borough"
-   	when "2"
-        type_of_crimes_borough(name)
-    when "3"
-    	freq_crime_spots(name)
-    when "4"
-    	freq_crime_level(name)
-    when "5"
-    	freq_crime_type_by_month(name)
-	when "6"
-		main_menu
-      else
-        puts "Please enter one of the valid commands: #{input} is NOT a command!"
-        menu_input
-      end
-      sub_menu_boroughs
-  end
-  end
-
-
-
 def menu_input_borough(input)
 	puts "Please name the borough:"
 	name = gets.chomp
@@ -392,7 +380,17 @@ def menu_input_borough(input)
 		  when "4"
 		  	freq_crime_level(name)
 		  when "5"
-		  	freq_crime_type_by_month(name)
+				message = [dash,
+							"Type in the month you want to view:".colorize(:yellow),
+							dash
+						]
+				puts message
+				month = gets.chomp
+				if month_valid?(month)
+					print_crime_by_months(name, month)
+				else
+					puts "That is not a valid month."
+				end
 			when "6"
 				main_menu
 	  end
@@ -438,7 +436,19 @@ def menu_input_city
 		    when "3"
 		    	nyc_crime_level
 		    when "4"
-		    	nyc_crime_freq_by_month
+					message = [dash,
+								"Type in the month you want to view:".colorize(:yellow),
+								dash
+							]
+					puts message
+					month = gets.chomp
+
+					if month_valid?(month)
+						print_crime_by_months(name = nil, month)
+					else
+						puts "That is not a valid month."
+					end
+
 		    when "5"
 		    	most_dangerous_borough
 		    when "6"
