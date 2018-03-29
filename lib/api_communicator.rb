@@ -1,7 +1,7 @@
 require 'JSON'
 require 'rest-client'
 require 'pry'
-require_relative '../config/environment'
+
  
 
 def crime_data
@@ -10,7 +10,6 @@ def crime_data
 end
 
 
-puts crime_data
 
 
 
