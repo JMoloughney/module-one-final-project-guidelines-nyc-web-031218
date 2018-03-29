@@ -22,10 +22,10 @@ def most_dangerous_borough
 	bor.each do |bor|
 		count[bor] = num_of_crimes(bor)
 	end
-  cust_border
+  cust_border2
 	x = count.max_by{|k,v| v}
   puts "The most dangerous borough in NYC is currently #{x[0].capitalize}, with a crime total of #{x[1]}".colorize(:white)
-  cust_border
+  cust_border2
 end
 
 
@@ -35,10 +35,10 @@ def least_dangerous_borough
 	bor.each do |bor|
 		count[bor] = num_of_crimes(bor)
 	end
-	cust_border
+	cust_border2
   x = count.min_by{|k,v| v}
   puts "The safest borough in NYC is currently #{x[0].capitalize}, with a crime total of #{x[1]}".colorize(:white)
-  cust_border
+  cust_border2
 end
 
 
@@ -54,12 +54,10 @@ end
   header_border
  	spacer
   spacer
+  header_border
   typ.each do |k,v|
     if k
-    header_border
-    puts "#{k}:".capitalize.colorize(:yellow)
-    dash
-    puts "#{v}".colorize(:white)
+    puts ("#{k}:".capitalize.colorize(:yellow)) + ("#{v}".colorize(:white))
     header_border
   end
  end
@@ -81,10 +79,7 @@ end
   header_border
   typ.each do |k,v|
     if k
-    header_border
-    puts "#{k}:".capitalize.colorize(:yellow)
-    dash
-    puts "#{v}".colorize(:white)
+    puts ("#{k}:".capitalize.colorize(:yellow)) + ("#{v}".colorize(:white))
     header_border
   end
  end
@@ -106,9 +101,7 @@ def freq_crime_level(name)
   spacer
   header_border
  	typ.each do |k,v|
- 		puts "#{k}:".capitalize.colorize(:yellow)
-    dash
-    puts "#{v}"
+ 		puts ("#{k}:".capitalize.colorize(:yellow)) + "#{v}"
     header_border
  	end
   spacer
@@ -141,11 +134,12 @@ def freq_crime_level(name)
 	end
 	 	month_hash = typ.select{|k,v| k.downcase == month.downcase}
 		month_hash.each do |k,v|
-			 dash
-		 puts k.colorize(:yellow)
-			 sub_dash
+			 equals_border
+		 puts k.colorize(:white)
+       equals_border
 			v.each do |k,v|
-				puts "#{k}: #{v}" if k
+				puts "#{k.capitalize.colorize(:yellow)}: #{v}" if k
+      dash
 			end
 		end
 		header_border
@@ -207,10 +201,10 @@ def nyc_freq_crime_spots
   header_border
  	spacer
   spacer
+  header_border
   typ.each do |k,v|
     if k
-    puts "#{k}:".capitalize.colorize(:yellow)
-    puts "#{v}"
+    puts ("#{k}:".capitalize.colorize(:yellow)) + "#{v}"
     header_border
   end
  end
@@ -229,11 +223,10 @@ def nyc_freq_crime_spots
   header_border
  	spacer
   spacer
+  header_border
   typ.each do |k,v|
     if k
-    header_border
-    puts "#{k}:".capitalize.colorize(:yellow)
-    puts "#{v}"
+    puts ("#{k}:".capitalize.colorize(:yellow)) + "#{v}"
     header_border
  	end
  end
@@ -255,19 +248,6 @@ def nyc_freq_crime_spots
   header_border
    	puts "These are the crime type rates by month in NYC:".colorize(:white)
   header_border
- 	typ.each do |k,v|
-    spacer
-    spacer
-    puts Date::MONTHNAMES[k.to_i].colorize(:yellow)
- 		header_border
-    sub_dash
- 		v.each do |k,v|
- 			if k
-      puts "#{k}:".colorize(:white) 
-      puts "#{v}"
- 		end
-  end
- 	end
   spacer
   spacer
 	typ
@@ -282,6 +262,10 @@ def dash
   puts "------------------------------------"
 end
 
+def equals_border
+  puts "======================================"
+end
+
 def sub_dash
   puts "--------------------"
 end
@@ -292,6 +276,10 @@ end
 
 def cust_border
   puts "=================================================================="
+end
+
+def cust_border2
+  puts "==================================================================================="
 end
 
 def title_border
@@ -364,6 +352,15 @@ end
 
 
   def main_menu
+    puts " 
+__   __ _______ ___ __    _      __   __ _______ __    _ __   __ 
+|  |_|  |   _   |   |  |  | |    |  |_|  |       |  |  | |  | |  |
+|       |  |_|  |   |   |_| |____|       |    ___|   |_| |  | |  |
+|       |       |   |       |____|       |   |___|       |  |_|  |
+|       |       |   |  _    |    |       |    ___|  _    |       |
+| ||_|| |   _   |   | | |   |    | ||_|| |   |___| | |   |       |
+|_|   |_|__| |__|___|_|  |__|    |_|   |_|_______|_|  |__|_______|"
+    spacer
     message = [
       "What would you like to do?:".colorize(:yellow),
       "1 : Check Criminal Activity by Borough".colorize(:white),
@@ -480,18 +477,27 @@ def menu_input_borough(input)
 	else
 	  case input
 		  when "1"
+        spacer
+        spacer
 		    x = num_of_crimes(name)
+        cust_border
 				puts "#{name.capitalize} has a crime total of #{x}.".colorize(:yellow)
-        spacer
-        spacer
-        spacer
+        cust_border
 		 	when "2"
+        spacer
+        spacer
 		    type_of_crimes_borough(name)
 		  when "3"
+        spacer
+        spacer
 		  	freq_crime_spots(name)
 		  when "4"
+        spacer
+        spacer
 		  	freq_crime_level(name)
 		  when "5"
+        spacer
+        spacer
 				message = [dash,
 							"Type in the month you want to view:".colorize(:yellow),
 							dash
@@ -504,8 +510,10 @@ def menu_input_borough(input)
 					puts "That is not a valid month."
 				end
 			when "6"
+        spacer
 				main_menu
 	  end
+    spacer
 	  sub_menu_boroughs
 	end
 end
@@ -550,12 +558,18 @@ def menu_input_city
     else
 	    case input
 		    when "1"
+          spacer
 		      nyc_freq_crime_type
 		   	when "2"
+          spacer
 		      nyc_freq_crime_spots
 		    when "3"
+          spacer
+          spacer
 		    	nyc_crime_level
 		    when "4"
+          spacer
+          spacer
 					message = [dash,
 								"Type in the month you want to view:".colorize(:yellow),
 								dash
@@ -570,12 +584,18 @@ def menu_input_city
 					end
 
 		    when "5"
+          spacer
+          spacer
 		    	most_dangerous_borough
 		    when "6"
+          spacer
+          spacer
 		    	least_dangerous_borough
 		    when "7"
+          spacer
 		    	main_menu
     	end
+      spacer
 	  	sub_menu_city
 		end
   end
