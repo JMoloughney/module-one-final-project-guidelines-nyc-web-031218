@@ -22,10 +22,10 @@ def most_dangerous_borough
 	bor.each do |bor|
 		count[bor] = num_of_crimes(bor)
 	end
+  cust_border
 	x = count.max_by{|k,v| v}
-	header_border
   puts "The most dangerous borough in NYC is currently #{x[0].capitalize}, with a crime total of #{x[1]}".colorize(:white)
-  header_border
+  cust_border
 end
 
 
@@ -35,10 +35,10 @@ def least_dangerous_borough
 	bor.each do |bor|
 		count[bor] = num_of_crimes(bor)
 	end
-	x = count.min_by{|k,v| v}
-	header_border
+	cust_border
+  x = count.min_by{|k,v| v}
   puts "The safest borough in NYC is currently #{x[0].capitalize}, with a crime total of #{x[1]}".colorize(:white)
-  header_border
+  cust_border
 end
 
 
@@ -56,7 +56,8 @@ end
   typ.each do |k,v|
     if k
     puts "#{k}:".colorize(:yellow)
-    puts "#{v}" 
+    sub_dash
+    puts "#{v}".colorize(:white)
     dash 
   end
  end
@@ -75,7 +76,8 @@ end
   typ.each do |k,v|
     if k
     puts "#{k}:".colorize(:yellow)
-    puts "#{v}" 
+    sub_dash
+    puts "#{v}".colorize(:white)
     dash 
   end
  end
@@ -92,7 +94,9 @@ def freq_crime_level(name)
  	puts "These are the crime level frequencies in your borough:".colorize(:white)
   header_border
  	typ.each do |k,v|
- 		puts "#{k}: #{v}" if k
+ 		puts "#{k}:".colorize(:yellow)
+    sub_dash
+    puts "#{v}"
  	end
  end
 
@@ -141,7 +145,8 @@ def nyc_crime_level
   header_border
  	typ.each do |k,v|
  		if k
-    puts "#{k}: #{v}" 
+    puts "#{k}:".colorize(:yellow)
+    puts "#{v}"
     dash
  	end
  end
@@ -160,7 +165,7 @@ def nyc_freq_crime_spots
   typ.each do |k,v|
     if k
     puts "#{k}:".colorize(:yellow)
-    puts "#{v}" 
+    puts "#{v}"
     dash 
   end
  end
@@ -219,16 +224,19 @@ def dash
 end
 
 def sub_dash
-  puts "-------------"
+  puts "--------------------"
 end
 
 def header_border
-  puts "============================================================="
+  puts "==========================================================="
 end
 
+def cust_border
+  puts "=================================================================="
+end
 
 def title_border
-  puts "+========================+"
+  puts "++++----^v^--^v^v^-^v^-----++++"
 end
 
 def spacer
@@ -262,19 +270,22 @@ end
     puts "Welcome to NYC Safety Net!".colorize(:red)
     title_border
     spacer
+    spacer
  end
 
 
   def main_menu
     message = [
       "What would you like to do?:".colorize(:yellow),
-      dash,
       "1 : Check Criminal Activity by Borough".colorize(:white),
       "2 : Check Criminal Activity by City-Wide".colorize(:white),
       "3 : Exit".colorize(:white)
     ]
+    header_border
     puts message
+    header_border
     puts "Please enter one of the numbered commands:"
+    dash
     menu_input
   end
 
@@ -297,10 +308,10 @@ end
 
    def exit_menu
     spacer
-    header_border
+    cust_border
     puts  "We thank you for your visit, we hope you found this".colorize(:white)
     puts  "information useful today & most importantly; Stay Safe Out There!!".colorize(:white)
-    header_border
+    cust_border
     creater_border
     puts  "-From your creators of NYC SafeNet: Helen & Joe".colorize(:yellow)
     creater_border
@@ -311,9 +322,8 @@ end
 #|||||BOROUGH MENUS|||||
 
 def sub_menu_boroughs
-message = [dash,
+message = [
       "What would you like to do?:".colorize(:yellow),
-      dash,
       "1 : View number of crimes".colorize(:white),
       "2 : View breakdown of crime types".colorize(:white),
       "3 : View hot-spot crime areas".colorize(:white),
@@ -321,10 +331,13 @@ message = [dash,
       "5 : View monthly breakdown of types of crimes".colorize(:white),
       "6 : Exit Sub-Menu".colorize(:white),
     ]
+    header_border
     puts message
+    header_border
     puts "Please enter one of the numbered commands:"
+    dash
 		input = gets.chomp
-
+    sub_dash
 		if input == "6"
 			main_menu
 		elsif !borough_input_valid?(input)
@@ -338,45 +351,16 @@ end
 
 
 
-def menu_input_borough
-	input = gets.chomp
-	if input == "6"
-		main_menu
-	else
-  header_border
-	puts "Please enter the name of your borough :"
-  header_border
-	name = gets.chomp
-  dash
-    case input
-     
-    when "1"
-        num_of_crimes(name)
-        puts "There are currently #{get_borough(name).length} crimes in your borough"
-   	when "2"
-        type_of_crimes_borough(name)
-    when "3"
-    	freq_crime_spots(name)
-    when "4"
-    	freq_crime_level(name)
-    when "5"
-    	freq_crime_type_by_month(name)
-	when "6"
-		main_menu
-      else
-        puts "Please enter one of the valid commands: #{input} is NOT a command!"
-        menu_input
-      end
-      sub_menu_boroughs
-  end
-  end
+
 
 
 
 def menu_input_borough(input)
-	puts "Please name the borough:"
+	header_border
+  puts "Please name the borough:"
+  header_border
 	name = gets.chomp
-
+  dash
 	if !borough_name_valid?(name)
 		puts "Please enter a valid borough name."
 		menu_input_borough(input)
@@ -405,8 +389,8 @@ end
 #|||||CITY-WIDE MENUS|||||
 
 def sub_menu_city
-message = ["What would you like to do?:".colorize(:yellow),
-      dash,
+message = [
+      "What would you like to do?:".colorize(:yellow),
       "1 : View breakdown of crime types".colorize(:white),
       "2 : View hot-spot crime areas".colorize(:white),
       "3 : View breakdown severity of crimes".colorize(:white),
@@ -415,7 +399,9 @@ message = ["What would you like to do?:".colorize(:yellow),
       "6 : Current Safest Borough".colorize(:white),
       "7 : Exit Sub-Menu".colorize(:white),
     ]
+    header_border
     puts message
+    header_border
     puts "Please enter one of the numbered commands:"
     dash
     menu_input_city
