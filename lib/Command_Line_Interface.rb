@@ -57,7 +57,7 @@ end
   typ.each do |k,v|
     if k
     header_border
-    puts "#{k}:".colorize(:yellow)
+    puts "#{k}:".capitalize.colorize(:yellow)
     dash
     puts "#{v}".colorize(:white)
     header_border
@@ -82,7 +82,7 @@ end
   typ.each do |k,v|
     if k
     header_border
-    puts "#{k}:".colorize(:yellow)
+    puts "#{k}:".capitalize.colorize(:yellow)
     dash
     puts "#{v}".colorize(:white)
     header_border
@@ -106,7 +106,7 @@ def freq_crime_level(name)
   spacer
   header_border
  	typ.each do |k,v|
- 		puts "#{k}:".colorize(:yellow)
+ 		puts "#{k}:".capitalize.colorize(:yellow)
     dash
     puts "#{v}"
     header_border
@@ -138,8 +138,8 @@ def freq_crime_level(name)
  		v.each do |k,v|
  			if k
     dash
-      puts "#{k}:".colorize(:yellow)
-      puts "#{v}" 
+      puts "#{k}:".capitalize.colorize(:yellow)
+      puts "#{v}"
  		end
   end
  	end
@@ -172,7 +172,7 @@ def nyc_crime_level
  	typ.each do |k,v|
  		if k
     header_border
-    puts "#{k}:".colorize(:yellow)
+    puts "#{k}:".capitalize.colorize(:yellow)
     puts "#{v}"
     header_border
  	end
@@ -195,7 +195,7 @@ def nyc_freq_crime_spots
   typ.each do |k,v|
     if k
     header_border
-    puts "#{k}:".colorize(:yellow)
+    puts "#{k}:".capitalize.colorize(:yellow)
     puts "#{v}"
     header_border
   end
@@ -218,7 +218,7 @@ def nyc_freq_crime_spots
   typ.each do |k,v|
     if k
     header_border
-    puts "#{k}:".colorize(:yellow)
+    puts "#{k}:".capitalize.colorize(:yellow)
     puts "#{v}" 
     header_border
  	end
