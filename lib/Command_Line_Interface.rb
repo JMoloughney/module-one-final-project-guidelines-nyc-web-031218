@@ -57,7 +57,7 @@ end
   header_border
   typ.each do |k,v|
     if k
-    puts ("#{k}:".capitalize.colorize(:yellow)) + ("#{v}".colorize(:white))
+    puts ("#{k}:".capitalize.colorize(:yellow)) + ("  #{v}".colorize(:white))
     header_border
   end
  end
@@ -79,7 +79,7 @@ end
   header_border
   typ.each do |k,v|
     if k
-    puts ("#{k}:".capitalize.colorize(:yellow)) + ("#{v}".colorize(:white))
+    puts ("#{k}:".capitalize.colorize(:yellow)) + ("  #{v}".colorize(:white))
     header_border
   end
  end
@@ -101,7 +101,7 @@ def freq_crime_level(name)
   spacer
   header_border
  	typ.each do |k,v|
- 		puts ("#{k}:".capitalize.colorize(:yellow)) + "#{v}"
+ 		puts ("#{k}:".capitalize.colorize(:yellow)) + "  #{v}"
     header_border
  	end
   spacer
@@ -204,7 +204,7 @@ def nyc_freq_crime_spots
   header_border
   typ.each do |k,v|
     if k
-    puts ("#{k}:".capitalize.colorize(:yellow)) + "#{v}"
+    puts ("#{k}:".capitalize.colorize(:yellow)) + "  #{v}"
     header_border
   end
  end
@@ -226,7 +226,7 @@ def nyc_freq_crime_spots
   header_border
   typ.each do |k,v|
     if k
-    puts ("#{k}:".capitalize.colorize(:yellow)) + "#{v}"
+    puts ("#{k}:".capitalize.colorize(:yellow)) + "  #{v}"
     header_border
  	end
  end
@@ -439,10 +439,10 @@ message = [
       spacer,
       "What would you like to do?:".colorize(:yellow),
       "1 : View number of crimes".colorize(:white),
-      "2 : View breakdown of crime types".colorize(:white),
-      "3 : View hot-spot crime areas".colorize(:white),
-      "4 : View breakdown severity of crimes".colorize(:white),
-      "5 : View monthly breakdown of types of crimes".colorize(:white),
+      "2 : View the breakdown of crime types".colorize(:white),
+      "3 : View the hot-spot crime areas".colorize(:white),
+      "4 : View the breakdown in severity of crimes".colorize(:white),
+      "5 : View the monthly breakdown of types of crimes".colorize(:white),
       "6 : Exit Sub-Menu".colorize(:white),
     ]
     puts message
@@ -537,7 +537,7 @@ spacer,
       "2 : View hot-spot crime areas".colorize(:white),
       "3 : View breakdown severity of crimes".colorize(:white),
       "4 : View monthly breakdown of types of crimes".colorize(:white),
-      "5 : Current Dangerous Borough".colorize(:white),
+      "5 : Current Most Dangerous Borough".colorize(:white),
       "6 : Current Safest Borough".colorize(:white),
       "7 : Exit Sub-Menu".colorize(:white)]
     puts message
