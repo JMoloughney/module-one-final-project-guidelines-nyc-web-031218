@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 3) do
 
   create_table "criminal_acts", force: :cascade do |t|
     t.integer "complaint_num"
-    t.float "latitude"
     t.integer "crime_id"
     t.integer "location_id"
   end

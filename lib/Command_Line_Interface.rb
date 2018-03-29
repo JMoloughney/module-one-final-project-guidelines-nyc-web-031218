@@ -2,12 +2,12 @@
 require 'pry'
 def get_borough(name)
 	Location.all.select do |loc|
-	loc.name.downcase == name.downcase
+		loc.name.downcase == name.downcase
 	end
 end
 
 def num_of_crimes(name)
-	x = get_borough(name).length
+	get_borough(name).length
 end
 
 def most_dangerous_borough
@@ -17,7 +17,7 @@ def most_dangerous_borough
 		count[bor] = num_of_crimes(bor)
 	end
 	x = count.max_by{|k,v| v}
-	puts "The most dangerous borough is currently #{x[0].capitalize}, with a crime total of #{x[1]}"
+	puts "The most dangerous borough is currently #{x[0].capitalize}, with a crime total of #{x[1]}."
 end
 
 
@@ -28,7 +28,7 @@ def least_dangerous_borough
 		count[bor] = num_of_crimes(bor)
 	end
 	x = count.min_by{|k,v| v}
-	puts "The safest borough is currently #{x[0].capitalize}, with a crime total of #{x[1]}"
+	puts "The safest borough is currently #{x[0].capitalize}, with a crime total of #{x[1]}."
 end
 
 
@@ -41,7 +41,7 @@ end
  	end
  	puts "These are frequent crime types in your borough:"
  	typ.each do |k,v|
- 		puts "#{k}:#{v}"
+ 		puts "#{k}: #{v}"
  	end
  end
 
@@ -53,7 +53,7 @@ end
  	end
  	puts "These are frequent crime spots in your borough:"
  	typ.each do |k,v|
- 		puts "#{k}:#{v}" 
+ 		puts "#{k}: #{v}"
  	end
  end
 
@@ -66,7 +66,7 @@ def freq_crime_level(name)
  	end
  	puts "These are crime level frequencies in your borough:"
  	typ.each do |k,v|
- 		puts "#{k}:#{v}" 
+ 		puts "#{k}: #{v}"
  	end
  end
 
@@ -78,7 +78,7 @@ def freq_crime_level(name)
  	get_borough(name).each do |loc|
  		loc.crimes.each do |cr|
  			month = cr.date_of_crime.split("-")[1]
- 			typ[month][cr.offense] += 1  
+ 			typ[month][cr.offense] += 1
  		end
  	end
  	puts "These are crime type rates by month in your borough:"
@@ -110,7 +110,7 @@ def freq_crime_level(name)
  				puts "December:"
  			end
  		v.each do |k,v|
- 			puts "#{k}:#{v}" 
+ 			puts "#{k}: #{v}"
  		end
  	end
  end
@@ -133,7 +133,7 @@ def nyc_crime_level
  	end
  	puts "These are crime level frequencies in NYC:"
  	typ.each do |k,v|
- 		puts "#{k}:#{v}" 
+ 		puts "#{k}: #{v}"
  	end
 end
 
@@ -145,7 +145,7 @@ def nyc_freq_crime_spots
  	end
  	puts "These are crime hot-spots in NYC:"
  	typ.each do |k,v|
- 		puts "#{k}:#{v}" 
+ 		puts "#{k}: #{v}"
  	end
  end
 
@@ -157,7 +157,7 @@ def nyc_freq_crime_spots
  		end
  	puts "These are the frequent types of crimes committed in NYC:"
  	typ.each do |k,v|
- 		puts "#{k}:#{v}" 
+ 		puts "#{k}: #{v}"
  	end
  end
 
@@ -168,7 +168,7 @@ def nyc_freq_crime_spots
  	Location.all.each do |loc|
  		loc.crimes.each do |cr|
  			month = cr.date_of_crime.split("-")[1]
- 			typ[month][cr.offense] += 1  
+ 			typ[month][cr.offense] += 1
  		end
  	end
  	puts "These are crime type rates by month in NYC:"
@@ -200,13 +200,10 @@ def nyc_freq_crime_spots
  				puts "December:"
  			end
  		v.each do |k,v|
- 			puts "#{k}:#{v}" 
+ 			puts "#{k}: #{v}"
  		end
  	end
  end
-
-
-
 
 
  def greet
@@ -238,43 +235,57 @@ message = [
     ]
     puts message
     puts "Please enter one of the numbered commands:"
-    menu_input_borough
+		input = gets.chomp
+
+		if input == "6"
+			main_menu
+		elsif !borough_input_valid?(input)
+			puts "Please enter one of the valid commands: #{input} is NOT a command!"
+			sub_menu_boroughs
+		else
+    	menu_input_borough(input)
+		end
+end
+
+def city_input_valid?(input)
+	input == "1" || input == "2" || input == "3" || input == "4" || input == "5" || input == "6"
 end
 
 
+def borough_input_valid?(input)
+	input == "1" || input == "2" || input == "3" || input == "4" || input == "5"
+end
 
+def borough_name_valid?(name)
+	name.downcase == "brooklyn" || name.downcase == "manhattan" || name.downcase == "queens" || name.downcase == "staten island" || name.downcase == "bronx"
+end
 
-
-
-
-def menu_input_borough
-	input = gets.chomp
-	if input == "6"
-		main_menu
-	else
+def menu_input_borough(input)
 	puts "Please name the borough:"
 	name = gets.chomp
-    case input
-     
-    when "1"
-        num_of_crimes(name)
-   	when "2"
-        type_of_crimes_borough(name)
-    when "3"
-    	freq_crime_spots(name)
-    when "4"
-    	freq_crime_level(name)
-    when "5"
-    	freq_crime_type_by_month(name)
-	when "6"
-		main_menu
-      else
-        puts "Please enter one of the valid commands: #{input} is NOT a command!"
-        menu_input
-      end
-      sub_menu_boroughs
-  end
-  end
+
+	if !borough_name_valid?(name)
+		puts "Please enter a valid borough name."
+		menu_input_borough(input)
+	else
+	  case input
+		  when "1"
+		    x = num_of_crimes(name)
+				puts "#{name.capitalize} has a crime total of #{x}."
+		 	when "2"
+		    type_of_crimes_borough(name)
+		  when "3"
+		  	freq_crime_spots(name)
+		  when "4"
+		  	freq_crime_level(name)
+		  when "5"
+		  	freq_crime_type_by_month(name)
+			when "6"
+				main_menu
+	  end
+	  sub_menu_boroughs
+	end
+end
 
 
 def sub_menu_city
@@ -294,48 +305,38 @@ message = [
 end
 
 
-
-
 def menu_input_city
 	input = gets.chomp
     if input == "7"
-     	main_menu
-     else
-    case input
-    when "1"
-        nyc_freq_crime_type
-   	when "2"
-        nyc_freq_crime_spots
-    when "3"
-    	nyc_crime_level
-    when "4"
-    	nyc_crime_freq_by_month
-    when "5"
-    	most_dangerous_borough
-    when "6"
-    	least_dangerous_borough
-    when "7"
     	main_menu
-      else
-        puts "Please enter one of the valid commands: #{input} is NOT a command!"
-        menu_input
-      end
-      sub_menu_city
-  	end
+		elsif !city_input_valid?(input)
+			puts "Please enter one of the valid commands: #{input} is NOT a command!"
+			menu_input_city
+    else
+	    case input
+		    when "1"
+		      nyc_freq_crime_type
+		   	when "2"
+		      nyc_freq_crime_spots
+		    when "3"
+		    	nyc_crime_level
+		    when "4"
+		    	nyc_crime_freq_by_month
+		    when "5"
+		    	most_dangerous_borough
+		    when "6"
+		    	least_dangerous_borough
+		    when "7"
+		    	main_menu
+    	end
+	  	sub_menu_city
+		end
   end
-
-
-
-
-
-
-
 
 
 def menu_input
     input = gets.chomp
       case input
-     
       when "1"
         sub_menu_boroughs
       when "2"
@@ -348,21 +349,9 @@ def menu_input
       end
   end
 
-
-
-
-
-
-
-
-
   def exit_menu
     puts "Goodbye! Stay Safe Out There!"
   end
-
-
-
-
 
 
 	def runner
