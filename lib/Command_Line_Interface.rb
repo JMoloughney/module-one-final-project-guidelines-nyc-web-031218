@@ -171,7 +171,6 @@ def nyc_crime_level
   spacer
  	typ.each do |k,v|
  		if k
-    header_border
     puts "#{k}:".capitalize.colorize(:yellow)
     puts "#{v}"
     header_border
@@ -194,7 +193,6 @@ def nyc_freq_crime_spots
   spacer
   typ.each do |k,v|
     if k
-    header_border
     puts "#{k}:".capitalize.colorize(:yellow)
     puts "#{v}"
     header_border
@@ -247,8 +245,11 @@ def nyc_freq_crime_spots
  		header_border
     sub_dash
  		v.each do |k,v|
- 			puts "#{k}: #{v}" if k
+ 			if k
+      puts "#{k}:".colorize(:white) 
+      puts "#{v}"
  		end
+  end
  	end
   spacer
   spacer
@@ -276,7 +277,7 @@ def cust_border
 end
 
 def title_border
-  puts "++++----^v^--^v^v^-^v^-----++++"
+  puts "++++-------^v^--^v^v^-^v^--------------^v^v^----------^v^--^v^v^-^v^---------++++"
 end
 
 def spacer
@@ -307,9 +308,32 @@ end
 
  def greet
     title_border
-    puts "Welcome to NYC Safety Net!".colorize(:red)
-    title_border
     spacer
+    puts "
+       _     _  _______  ___      _______  _______  __   __  _______ 
+      | | _ | ||       ||   |    |       ||       ||  |_|  ||       |              
+      | || || ||    ___||   |    |       ||   _   ||       ||    ___|              
+      |       ||   |___ |   |    |       ||  | |  ||       ||   |___               
+      |       ||    ___||   |___ |      _||  |_|  ||       ||    ___|              
+      |   _   ||   |___ |       ||     |_ |       || ||_|| ||   |___               
+      |__| |__||_______||_______||_______||_______||_|   |_||_______|              
+                         _______  _______                                          
+                        |       ||       |                                         
+                        |_     _||   _   |                                         
+                          |   |  |  | |  |                                         
+                          |   |  |  |_|  |                                         
+                          |   |  |       |                                         
+                          |___|  |_______|                                         
+ _______  _______  _______  _______  _______  __   __    __    _  _______  _______ 
+|       ||   _   ||       ||       ||       ||  | |  |  |  |  | ||       ||       |
+|  _____||  |_|  ||    ___||    ___||_     _||  |_|  |  |   |_| ||    ___||_     _|
+| |_____ |       ||   |___ |   |___   |   |  |       |  |       ||   |___   |   |  
+|_____  ||       ||    ___||    ___|  |   |  |_     _|  |  _    ||    ___|  |   |  
+ _____| ||   _   ||   |    |   |___   |   |    |   |    | | |   ||   |___   |   |  
+|_______||__| |__||___|    |_______|  |___|    |___|    |_|  |__||_______|  |___|                   
+          " 
+    spacer
+    title_border
     spacer
  end
 
@@ -349,6 +373,25 @@ end
    def exit_menu
     spacer
     cust_border
+  puts " 
+ _______  _______  _______  __   __    __   __  _______  _______  _______  _______  ______        
+|       ||       ||   _   ||  | |  |  |  | |  ||       ||   _   ||       ||       ||      |       
+|  _____||_     _||  |_|  ||  |_|  |  |  | |  ||    _  ||  |_|  ||_     _||    ___||  _    |      
+| |_____   |   |  |       ||       |  |  |_|  ||   |_| ||       |  |   |  |   |___ | | |   |      
+|_____  |  |   |  |       ||_     _|  |       ||    ___||       |  |   |  |    ___|| |_|   | ___  
+ _____| |  |   |  |   _   |  |   |    |       ||   |    |   _   |  |   |  |   |___ |       ||_  | 
+|_______|  |___|  |__| |__|  |___|    |_______||___|    |__| |__|  |___|  |_______||______|   |_| 
+         _______  _______  _______  __   __    _______  _______  _______  _______   ____              
+        |       ||       ||   _   ||  | |  |  |       ||   _   ||       ||       | |    |           
+        |  _____||_     _||  |_|  ||  |_|  |  |  _____||  |_|  ||    ___||    ___| |    |          
+        | |_____   |   |  |       ||       |  | |_____ |       ||   |___ |   |___  |    |            
+        |_____  |  |   |  |       ||_     _|  |_____  ||       ||    ___||    ___| |____|           
+         _____| |  |   |  |   _   |  |   |     _____| ||   _   ||   |    |   |___   ____           
+        |_______|  |___|  |__| |__|  |___|    |_______||__| |__||___|    |_______| |____|"
+
+    spacer
+    spacer
+    cust_border
     puts  "We thank you for your visit, we hope you found this".colorize(:white)
     puts  "information useful today & most importantly; Stay Safe Out There!!".colorize(:white)
     cust_border
@@ -363,6 +406,15 @@ end
 
 def sub_menu_boroughs
 message = [
+
+"_______  _______  ______    _______  __   __  _______  __   __        __   __  _______  __    _  __   __ 
+|  _    ||       ||    _ |  |       ||  | |  ||       ||  | |  |      |  |_|  ||       ||  |  | ||  | |  |
+| |_|   ||   _   ||   | ||  |   _   ||  | |  ||    ___||  |_|  | ____ |       ||    ___||   |_| ||  | |  |
+|       ||  | |  ||   |_||_ |  | |  ||  |_|  ||   | __ |       ||____||       ||   |___ |       ||  |_|  |
+|  _   | |  |_|  ||    __  ||  |_|  ||       ||   ||  ||       |      |       ||    ___||  _    ||       |
+| |_|   ||       ||   |  | ||       ||       ||   |_| ||   _   |      | ||_|| ||   |___ | | |   ||       |
+|_______||_______||___|  |_||_______||_______||_______||__| |__|      |_|   |_||_______||_|  |__||_______|",
+      spacer,
       "What would you like to do?:".colorize(:yellow),
       "1 : View number of crimes".colorize(:white),
       "2 : View breakdown of crime types".colorize(:white),
@@ -371,9 +423,7 @@ message = [
       "5 : View monthly breakdown of types of crimes".colorize(:white),
       "6 : Exit Sub-Menu".colorize(:white),
     ]
-    header_border
     puts message
-    header_border
     puts "Please enter one of the numbered commands:"
     dash
 		input = gets.chomp
@@ -405,10 +455,8 @@ def menu_input_borough(input)
 	else
 	  case input
 		  when "1"
-        header_border
 		    x = num_of_crimes(name)
 				puts "#{name.capitalize} has a crime total of #{x}.".colorize(:yellow)
-        header_border
         spacer
         spacer
         spacer
@@ -432,7 +480,15 @@ end
 #|||||CITY-WIDE MENUS|||||
 
 def sub_menu_city
-message = [
+message = [" 
+ _______ ___ _______ __   __      _     _ ___ ______  _______   __   __ _______ __    _ __   __ 
+|       |   |       |  | |  |    | | _ | |   |      ||       | |  |_|  |       |  |  | |  | |  |
+|      _|   |_     _|  |_|  |____| || || |   |  _    |    ___| |       |    ___|   |_| |  | |  |
+|     | |   | |   | |       |____|       |   | | |   |   |___  |       |   |___|       |  |_|  |
+|     | |   | |   | |_     _|    |       |   | |_|   |    ___| |       |    ___|  _    |       |
+|     |_|   | |   |   |   |      |   _   |   |       |   |___  | ||_|| |   |___| | |   |       |
+|_______|___| |___|   |___|      |__| |__|___|______||_______| |_|   |_|_______|_|  |__|_______|",
+spacer,
       "What would you like to do?:".colorize(:yellow),
       "1 : View breakdown of crime types".colorize(:white),
       "2 : View hot-spot crime areas".colorize(:white),
@@ -440,9 +496,7 @@ message = [
       "4 : View monthly breakdown of types of crimes".colorize(:white),
       "5 : Current Dangerous Borough".colorize(:white),
       "6 : Current Safest Borough".colorize(:white),
-      "7 : Exit Sub-Menu".colorize(:white),
-    ]
-    header_border
+      "7 : Exit Sub-Menu".colorize(:white)]
     puts message
     header_border
     puts "Please enter one of the numbered commands:"
